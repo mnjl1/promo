@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+                >
+<head>
+    <meta charset="UTF-8">
+    <title>Promo Order</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <h1>Додайте позициї в замовлення</h1>
+    <link th:src="@{/images/mmplus.png}">
+
+    <form method="post" th:object="${promoOrder}">
+        <div class="grid">
+            <div class="items-group" id="alcohol">
+                <h3>Алкоголь</h3>
+                <div th:each="item : ${alcohol}">
+                    <input name="items" type="checkbox" th:value="${item.id}"/>
+                    <span th:text="${item.itemName}">ITEMS</span><br>
+                </div>
+            </div>
+            <div class="item-group" id="beverages">
+                <h3>Напої</h3>
+                <div th:each="item : ${beverages}">
+                    <input name="items" type="checkbox" th:value="${item.id}">
+                    <span th:text="${item.itemName}">ITEM</span><br>
+                </div>
+            </div>
+            <div class="item-group" id="gastronomy">
+                <h3>Гастрономия</h3>
+                <div th:each="item : ${gastronomy}">
+                    <input name="items" type="checkbox" th:value="${item.id}">
+                    <span th:text="${item.itemName}">ITEM</span>
+                </div>
+            </div>
+            <div class="item-group" id="grocery">
+                <h3>Бакалія</h3>
+                <div th:each="item : ${grocery}">
+                    <input name="items" type="checkbox" th:value="${item.id}">
+                    <span th:text="${item.itemName}">ITEM</span>
+                </div>
+            </div>
+            <div class="item-group" id="confectionery">
+                <h3>Кондитерськи віроби</h3>
+                <div th:each="item : ${confectionery}">
+                    <input name="items" type="checkbox" th:value="${item.id}">
+                    <span th:text="${item.itemName}">ITEM</span>
+                </div>
+            </div>
+            <div class="item-group" id="household">
+                <div th:each="item : ${household}">
+                    <input name="items" type="checkbox" th:value="${item.id}">
+                    <span th:text="${item.itemName}">ITEM</span>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <button>Submit promoOrder</button>
+        </div>
+
+    </form>
+
+</body>
+</html>
