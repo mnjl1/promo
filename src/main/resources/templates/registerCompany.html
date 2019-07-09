@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Promo MMplus</title>
+</head>
+<body>
+<h1>Register</h1>
+<img th:src="@{/images/mmplus.png}"/>
+<form method="post" th:action="@{/manager/registerCompany}" id="registerForm">
+    <label for="companyName">Company:</label>
+    <input type="text" name="companyName">
+    <label for="companyEmail">Email:</label>
+    <input type="text" name="companyEmail">
+    <label for="zkpo">ZKPO:</label>
+    <input type="number" name="zkpo">
+    <label for="username">Username: </label>
+    <input type="text" name="username"/><br/>
+    <label for="password">Password: </label>
+    <input type="password" name="password"/><br/>
+    <label for="confirm">Confirm password: </label>
+    <input type="password" name="confirm"/><br/>
+    <input type="submit" value="Register"/>
+</form>
+</body>
+</html>
