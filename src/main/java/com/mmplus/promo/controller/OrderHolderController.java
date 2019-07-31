@@ -15,7 +15,6 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 
-@Slf4j
 @Controller
 @SessionAttributes("promoOrderHolder")
 @RequestMapping("/orders")

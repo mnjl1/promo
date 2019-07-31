@@ -17,7 +17,6 @@ import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Controller
 @SessionAttributes("promoOrder")
 @RequestMapping("/place-promoOrder")
