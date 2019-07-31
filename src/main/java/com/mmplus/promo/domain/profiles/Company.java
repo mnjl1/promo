@@ -7,25 +7,22 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 //@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+//@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Company extends User {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long Id;
+    private static final long serialVersionUID = 1L;
 
     @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
     private String companyName;
@@ -34,7 +31,7 @@ public class Company extends User {
     @Email
     private String companyEmail;
 
-    @NotBlank
+
     //todo create @Digits rejex validation
     private Integer zkpo;
 
@@ -46,12 +43,13 @@ public class Company extends User {
     private Set<Item> items;
 
     public Company(String companyName, String companyEmail) {
-        super();
         this.companyName = companyName;
         this.companyEmail = companyEmail;
     }
 
-    public Company(String username, String password, String companyName, String companyEmail) {
+
+
+        public Company(String username, String password, String companyName, String companyEmail) {
         super(username, password);
         this.companyName = companyName;
         this.companyEmail = companyEmail;
@@ -66,6 +64,7 @@ public class Company extends User {
         this.zkpo = zkpo;
     }
 
+
     public Company(String username, String password, @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
             String companyName, @NotBlank @Email String companyEmail, @NotBlank Integer zkpo) {
         super(username, password);
@@ -76,6 +75,6 @@ public class Company extends User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_COMPANY"));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_COMPANY"));
     }
 }
