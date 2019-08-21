@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
     <title>Promo</title>
 </head>
-    <body>
         <h1>Welcome to...</h1>
         <img th:src="@{/images/mmplus.png}"/>
+
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <a href="/manager/registerCompany">Реєстрація нового Постачальника</a>
+        </div>
+        <br><br>
+
+        <div sec:authorize="hasRole('ROLE_COMPANY')">
+            <a href="/place-promoOrder">Замовлення "Гаряча ціна"</a>
+        </div>
+        <br><br>
+
         <form method="POST" th:action="@{/logout}">
-            <input type="submit" value="Logout"/>
+            <button type="submit" value="Logout">Виход з системи</button>
         </form>
 
 </body>

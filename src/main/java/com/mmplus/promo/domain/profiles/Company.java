@@ -31,47 +31,55 @@ public class Company extends User {
     @Email
     private String companyEmail;
 
+    @ManyToMany(targetEntity = Item.class)
+    private Set<Item> items;
+
 
     //todo create @Digits rejex validation
     private Integer zkpo;
 
-    public Company(){
-
-    }
-
-    @ManyToMany(targetEntity = Item.class)
-    private Set<Item> items;
-
-    public Company(String companyName, String companyEmail) {
-        this.companyName = companyName;
-        this.companyEmail = companyEmail;
-    }
-
-
-
-        public Company(String username, String password, String companyName, String companyEmail) {
-        super(username, password);
-        this.companyName = companyName;
-        this.companyEmail = companyEmail;
-    }
-
-    public Company(@NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED) String companyName,
-                   @NotBlank @Email String companyEmail,
-                   @NotBlank Integer zkpo) {
-        super();
-        this.companyName = companyName;
-        this.companyEmail = companyEmail;
-        this.zkpo = zkpo;
-    }
-
-
     public Company(String username, String password, @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
-            String companyName, @NotBlank @Email String companyEmail, @NotBlank Integer zkpo) {
+            String companyName, @NotBlank @Email String companyEmail, Integer zkpo) {
         super(username, password);
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.zkpo = zkpo;
     }
+
+        public Company(){
+
+    }
+
+//    public Company(String companyName, String companyEmail) {
+//        this.companyName = companyName;
+//        this.companyEmail = companyEmail;
+//    }
+//
+//
+//    public Company(String username, String password, @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
+//            String companyName, @NotBlank @Email String companyEmail, @NotBlank Integer zkpo) {
+//        super(username, password);
+//        this.companyName = companyName;
+//        this.companyEmail = companyEmail;
+//        this.zkpo = zkpo;
+//    }
+//
+//    public Company(@NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED) String companyName,
+//                   @NotBlank @Email String companyEmail, Set<Item> items, Integer zkpo) {
+//        this.companyName = companyName;
+//        this.companyEmail = companyEmail;
+//        this.items = items;
+//        this.zkpo = zkpo;
+//    }
+//
+//    public Company(String username, String password, @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
+//            String companyName, @NotBlank @Email String companyEmail, Set<Item> items, Integer zkpo) {
+//        super(username, password);
+//        this.companyName = companyName;
+//        this.companyEmail = companyEmail;
+//        this.items = items;
+//        this.zkpo = zkpo;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
