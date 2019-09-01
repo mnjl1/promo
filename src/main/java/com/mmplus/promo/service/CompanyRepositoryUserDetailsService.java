@@ -1,7 +1,6 @@
 package com.mmplus.promo.service;
 
-import com.mmplus.promo.data.CompanyRepository;
-import com.mmplus.promo.data.UserRepository;
+import com.mmplus.promo.repository.CompanyRepository;
 import com.mmplus.promo.domain.profiles.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,8 +1,7 @@
 package com.mmplus.promo.service;
 
-import com.mmplus.promo.data.UserRepository;
+import com.mmplus.promo.repository.UserRepository;
 import com.mmplus.promo.domain.profiles.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

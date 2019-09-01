@@ -1,4 +1,4 @@
-package com.mmplus.promo.data;
+package com.mmplus.promo.repository;
 
 import com.mmplus.promo.domain.profiles.Company;
 import org.springframework.data.repository.CrudRepository;

@@ -1,6 +1,6 @@
 package com.mmplus.promo.controller;
 
-import com.mmplus.promo.data.PromoOrderHolderRepository;
+import com.mmplus.promo.repository.PromoOrderHolderRepository;
 import com.mmplus.promo.domain.PromoOrderHolder;
 import com.mmplus.promo.domain.profiles.Company;
 import org.springframework.beans.factory.annotation.Autowired;
