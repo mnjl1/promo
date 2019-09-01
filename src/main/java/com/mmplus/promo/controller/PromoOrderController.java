@@ -6,7 +6,6 @@ import com.mmplus.promo.domain.Category;
 import com.mmplus.promo.domain.Item;
 import com.mmplus.promo.domain.activity.PromoOrder;
 import com.mmplus.promo.domain.PromoOrderHolder;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 @SessionAttributes("promoOrder")
 @RequestMapping("/place-promoOrder")
 public class PromoOrderController {
-
 
     private final ItemRepository itemRepository;
     private PromoOrderRepository promoOrderRepository;
@@ -38,13 +36,14 @@ public class PromoOrderController {
 
         List<Item> items = new ArrayList<>();
 
-        itemRepository.findAll().forEach(i->items.add(i));
+        itemRepository.findAll().forEach(items::add);
 
         Category[] categories = Category.values();
 
         for (Category category: categories
              ) {
-            model.addAttribute(category.toString().toLowerCase(), filterByCategory(items, category));
+            model.addAttribute(category.getCategoryValue().toLowerCase(),
+                    filterByCategory(items, category.getCategoryValue()));
         }
 
         model.addAttribute("promoOrder", new PromoOrder());
@@ -76,9 +75,9 @@ public class PromoOrderController {
         return "redirect:/orders/current";
     }
 
-    private List<Item> filterByCategory(List<Item> items, Category category){
+    private List<Item> filterByCategory(List<Item> items, String category){
         List<Item> filteredItems = items.stream()
-                .filter(p->category.equals(p.getCategory())).collect(Collectors.toList());
+                .filter(p->category.equals(p.getCategory().getCategoryValue())).collect(Collectors.toList());
         return filteredItems;
     }
 }
