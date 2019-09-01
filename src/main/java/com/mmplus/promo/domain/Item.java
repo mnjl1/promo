@@ -1,23 +1,21 @@
 package com.mmplus.promo.domain;
 
-import com.mmplus.promo.domain.profiles.Company;
-import lombok.*;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
-@Data
-//@RequiredArgsConstructor
-//@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @Entity
+@Table(name = "Item")
 public class Item {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
     private String ean;
+
+    @Column(name = "item_name")
     private String itemName;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     public Item() {
@@ -61,5 +59,31 @@ public class Item {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+        Item item = (Item) o;
+        return Objects.equals(id, item.id) &&
+                Objects.equals(ean, item.ean) &&
+                Objects.equals(itemName, item.itemName) &&
+                category == item.category;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ean, itemName, category);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", ean='" + ean + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", category=" + category +
+                '}';
     }
 }
