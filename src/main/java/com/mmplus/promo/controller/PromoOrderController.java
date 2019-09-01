@@ -1,7 +1,7 @@
 package com.mmplus.promo.controller;
 
-import com.mmplus.promo.data.ItemRepository;
-import com.mmplus.promo.data.PromoOrderRepository;
+import com.mmplus.promo.repository.ItemRepository;
+import com.mmplus.promo.repository.PromoOrderRepository;
 import com.mmplus.promo.domain.Category;
 import com.mmplus.promo.domain.Item;
 import com.mmplus.promo.domain.activity.PromoOrder;
