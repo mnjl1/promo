@@ -1,6 +1,5 @@
-package com.mmplus.promo.domain;
+package com.mmplus.promo.domain.activity;
 
-import com.mmplus.promo.domain.activity.PromoOrder;
 import com.mmplus.promo.domain.profiles.Company;
 import com.mmplus.promo.utils.Constants;
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class PromoOrderHolder implements Serializable {
+public class HotPricePromoOrderHolder implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,24 +29,24 @@ public class PromoOrderHolder implements Serializable {
     private String contactPhoneNumber;
 
     @ManyToMany(targetEntity = PromoOrder.class)
-    private List<PromoOrder> promoOrders = new ArrayList<>();
+    private List<PromoOrder> hotPricePromoOrders = new ArrayList<>();
 
-    public PromoOrderHolder() {
+    public HotPricePromoOrderHolder() {
     }
 
-    public PromoOrderHolder(Date placedAt, @NotBlank(message = Constants.MESSAGE_NAME_REQUIRED) String name,
-                            Company company, @Digits(integer = 10, fraction = 0,
+    public HotPricePromoOrderHolder(Date placedAt, @NotBlank(message = Constants.MESSAGE_NAME_REQUIRED) String name,
+                                    Company company, @Digits(integer = 10, fraction = 0,
                             message = Constants.MESSAGE_CORRECT_PHONE_NUMBER) String contactPhoneNumber,
-                            List<PromoOrder> promoOrders) {
+                                    List<PromoOrder> hotPricePromoOrders) {
         this.placedAt = placedAt;
         this.name = name;
         this.company = company;
         this.contactPhoneNumber = contactPhoneNumber;
-        this.promoOrders = promoOrders;
+        this.hotPricePromoOrders = hotPricePromoOrders;
     }
 
-    public void addPromoOrder(PromoOrder promoOrder){
-        this.promoOrders.add(promoOrder);
+    public void addHotPricePromoOrder(HotPricePromoOrder hotPricePromoOrder){
+        this.hotPricePromoOrders.add(hotPricePromoOrder);
     }
 
     @PrePersist
@@ -95,11 +94,11 @@ public class PromoOrderHolder implements Serializable {
         this.company = company;
     }
 
-    public List<PromoOrder> getPromoOrders() {
-        return promoOrders;
+    public List<PromoOrder> getHotPricePromoOrders() {
+        return hotPricePromoOrders;
     }
 
-    public void setPromoOrders(List<PromoOrder> promoOrders) {
-        this.promoOrders = promoOrders;
+    public void setHotPricePromoOrders(List<PromoOrder> hotPricePromoOrders) {
+        this.hotPricePromoOrders = hotPricePromoOrders;
     }
 }

@@ -32,5 +32,4 @@ public class RegistrationController {
         userRepository.save(registrationForm.toUser(passwordEncoder));
         return "redirect:/login";
     }
-
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Горяча ціна</title>
+</head>
+<body>
+    <div th:if="${not #lists.isEmpty(hotPriceSchedule)}">
+    <table>
+        <tr>
+            <td>id</td>
+            <td>Місяць</td>
+            <td>Початок</td>
+            <td>Кінець</td>
+        </tr>
+        <tr th:each="schedule:${hotPriceSchedule}">
+            <td th:utext="*{schedule.id}"></td>
+            <td th:utext="*{schedule.startDate.getMonth()}"></td>
+            <td th:utext="*{schedule.startDate}"></td>
+            <td th:utext="*{schedule.endDate}"></td>
+        </tr>
+    </table>
+    </div>
+</body>
+</html>

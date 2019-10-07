@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Form</title>
+</head>
+<body>
+
+    <form action="/mmplus/process-hot-price-schedule-form" th:object="${schedule}" method="post">
+        Стар акциї:
+        <input type="date" th:field="*{startDate}">
+        <br>
+        Кінец акції:
+        <input type="date" th:field="*{endDate}">
+        <br><br>
+
+        <input type="submit" th:value="Submit">
+
+
+    </form>
+
+</body>
+</html>

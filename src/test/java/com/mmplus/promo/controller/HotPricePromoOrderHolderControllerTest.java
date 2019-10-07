@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class OrderHolderControllerTest {
+public class HotPricePromoOrderHolderControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,6 +27,6 @@ public class OrderHolderControllerTest {
         this.mockMvc
                 .perform(get("/orders/current"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("orderHolderForm"));
+                .andExpect(view().name("hotPricePromoOrderHolderForm"));
     }
 }
