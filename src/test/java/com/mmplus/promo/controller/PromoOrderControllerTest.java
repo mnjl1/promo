@@ -25,16 +25,16 @@ public class PromoOrderControllerTest {
     @Test
     @WithMockUser(roles = "COMPANY")
     public void shouldReturnOrderFom() throws Exception{
-        this.mockMvc.perform(get("/place-promoOrder"))
+        this.mockMvc.perform(get("/place-hot-price-promo-order"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("order"));
+                .andExpect(view().name("hotPricePromoOrder"));
     }
 
     @Test
     @WithMockUser(roles = "COMPANY")
     public void processOrderFormTest() throws Exception{
-        this.mockMvc.perform(post("/place-promoOrder"))
+        this.mockMvc.perform(post("/place-hot-price-promo-order"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("order"));
+                .andExpect(view().name("hotPricePromoOrder"));
     }
 }

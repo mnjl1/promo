@@ -1,9 +1,7 @@
 package com.mmplus.promo.domain.activity;
 
 import com.mmplus.promo.domain.Item;
-import com.mmplus.promo.domain.schedule.PromoSchedule;
 import com.mmplus.promo.utils.Constants;
-import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

@@ -1,10 +1,13 @@
 package com.mmplus.promo.domain;
 
+import com.mmplus.promo.domain.profiles.Company;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "Item")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,17 +21,24 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    private String stockNumber;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "items")
+    private Set<Company> companies = new HashSet<>();
+
     public Item() {
     }
 
-    public Item(Long id, String ean, String itemName, Category category) {
-        this.id = id;
+    public Item(String ean, String itemName, Category category,
+                String stockNumber,
+                Set<Company> companies) {
         this.ean = ean;
         this.itemName = itemName;
         this.category = category;
+        this.stockNumber = stockNumber;
+        this.companies = companies;
     }
 
-    //todo fix lombok getters/setters
     public Long getId() {
         return id;
     }
@@ -61,20 +71,39 @@ public class Item {
         this.category = category;
     }
 
+    public String getStockNumber() {
+        return stockNumber;
+    }
+
+    public void setStockNumber(String stockNumber) {
+        this.stockNumber = stockNumber;
+    }
+
+    @ManyToMany
+    public Set<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(Set<Company> companies) {
+        this.companies = companies;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) &&
-                Objects.equals(ean, item.ean) &&
-                Objects.equals(itemName, item.itemName) &&
-                category == item.category;
+        return Objects.equals(getId(), item.getId()) &&
+                Objects.equals(getEan(), item.getEan()) &&
+                Objects.equals(getItemName(), item.getItemName()) &&
+                getCategory() == item.getCategory() &&
+                Objects.equals(getStockNumber(), item.getStockNumber()) &&
+                Objects.equals(getCompanies(), item.getCompanies());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ean, itemName, category);
+        return Objects.hash(getId(), getEan(), getItemName(), getCategory(), getStockNumber(), getCompanies());
     }
 
     @Override
@@ -84,6 +113,8 @@ public class Item {
                 ", ean='" + ean + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", category=" + category +
+                ", stockNumber='" + stockNumber + '\'' +
+                ", companies=" + companies +
                 '}';
     }
 }

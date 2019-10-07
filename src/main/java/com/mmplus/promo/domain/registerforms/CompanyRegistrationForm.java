@@ -9,11 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class CompanyRegistrationForm {
     private String companyName;
     private String companyEmail;
-    private Integer zkpo;
     private String username;
     private String password;
+    private String contractNumber;
 
     public Company toCompany(PasswordEncoder passwordEncoder){
-        return new Company(username, passwordEncoder.encode(password), companyName, companyEmail, zkpo);
+        return new Company(username, passwordEncoder.encode(password), companyName, companyEmail, contractNumber);
     }
 }

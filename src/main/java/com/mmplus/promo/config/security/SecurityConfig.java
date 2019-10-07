@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/manager/**")
+                .antMatchers("/manager/**", "/mmplus/**")
                 .hasRole("USER")
                 .antMatchers("/place-promoOrder", "/orders").hasRole("COMPANY")
                 .antMatchers("/", "/**").permitAll()

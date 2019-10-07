@@ -1,9 +1,8 @@
 package com.mmplus.promo.controller;
 
-import com.mmplus.promo.repository.PromoOrderHolderRepository;
-import com.mmplus.promo.domain.PromoOrderHolder;
+import com.mmplus.promo.domain.activity.HotPricePromoOrderHolder;
 import com.mmplus.promo.domain.profiles.Company;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mmplus.promo.service.HotPricePromoOrderHolderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,29 +16,32 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.validation.Valid;
 
 @Controller
-@SessionAttributes("promoOrderHolder")
+@SessionAttributes("hotPricePromoOrderHolder")
 @RequestMapping("/orders")
-public class OrderHolderController {
+public class HotPricePromoOrderHolderController {
 
-    @Autowired
-    private PromoOrderHolderRepository promoOrderHolderRepository;
+    private final HotPricePromoOrderHolderService hotPricePromoOrderHolderService;
+
+    public HotPricePromoOrderHolderController(HotPricePromoOrderHolderService hotPricePromoOrderHolderService) {
+        this.hotPricePromoOrderHolderService = hotPricePromoOrderHolderService;
+    }
 
     @GetMapping("/current")
     public String orderForm(Model model){
-        model.addAttribute("promoOrderHolder", new PromoOrderHolder());
-        return "orderHolderForm";
+        model.addAttribute("hotPricePromoOrderHolder", new HotPricePromoOrderHolder());
+        return "hotPricePromoOrderHolderForm";
     }
 
     @PostMapping
-    public String processOrderHolder(@Valid PromoOrderHolder promoOrderHolder, Errors errors,
+    public String processOrderHolder(@Valid HotPricePromoOrderHolder hotPricePromoOrderHolder, Errors errors,
                                      SessionStatus sessionStatus,
                                      @AuthenticationPrincipal Company company){
         if (errors.hasErrors()){
-            return "orderHolderForm";
+            return "hotPricePromoOrderHolderForm";
         }
-        promoOrderHolderRepository.save(promoOrderHolder);
+        hotPricePromoOrderHolderService.saveOrUpdate(hotPricePromoOrderHolder);
 
-        promoOrderHolder.setCompany(company);
+        hotPricePromoOrderHolder.setCompany(company);
         sessionStatus.setComplete();
 
         return "redirect:/";
