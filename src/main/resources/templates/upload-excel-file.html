@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Uploading files</title>
+</head>
+<body>
+<div>
+    <form action="/manager/upload-company-list" enctype="multipart/form-data" method="post">
+        <input type="file" th:name="companyListFile">
+
+        <input type="submit" value="Загрузка файла">
+
+    </form>
+</div>
+
+</body>
+</html>

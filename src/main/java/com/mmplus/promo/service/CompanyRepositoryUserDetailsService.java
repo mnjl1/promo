@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CompanyRepositoryUserDetailsService implements UserDetailsService   {
-    private CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
 
     @Autowired
     public CompanyRepositoryUserDetailsService(CompanyRepository companyRepository) {
@@ -24,5 +24,13 @@ public class CompanyRepositoryUserDetailsService implements UserDetailsService  
             return company;
         }
         else throw new  UsernameNotFoundException("Username '" +username +"' not found.");
+    }
+
+    public void saveOrUpdate(Company company){
+        companyRepository.save(company);
+    }
+
+    public Iterable<Company> findAll(){
+        return companyRepository.findAll();
     }
 }

@@ -12,6 +12,7 @@ import java.util.*;
 
 
 @Entity
+@Table(name = "company")
 public class Company extends User {
 
     private static final long serialVersionUID = 1L;
@@ -21,9 +22,11 @@ public class Company extends User {
 
     private String contractNumber;
 
-    @NotBlank
     @Email
     private String companyEmail;
+
+    //todo create @Digits rejex validation
+    private int zkpo;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "company_item",
@@ -31,28 +34,27 @@ public class Company extends User {
     inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items = new HashSet<>();
 
-    //todo create @Digits rejex validation
-    private Integer zkpo;
 
-//    public Company(@NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED) String companyName,
-//                   String contractNumber, @NotBlank @Email String companyEmail) {
-//        this.companyName = companyName;
-//        this.contractNumber = contractNumber;
-//        this.companyEmail = companyEmail;
-//    }
-
-    public Company(String username, String password, @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
-            String companyName, String contractNumber, @NotBlank @Email String companyEmail) {
+    public Company(String username, String password,
+                   String companyName, String contractNumber, @Email String companyEmail) {
         super(username, password);
         this.companyName = companyName;
         this.contractNumber = contractNumber;
         this.companyEmail = companyEmail;
     }
 
-    public Company(String username, String password, @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
-            String companyName, String contractNumber, @NotBlank @Email String companyEmail,
-                   Set<Item> items, Integer zkpo) {
-        super(username, password);
+    public Company(Long id, String username, String password,
+            String companyName, String contractNumber, @Email String companyEmail) {
+        super(id, username, password);
+        this.companyName = companyName;
+        this.contractNumber = contractNumber;
+        this.companyEmail = companyEmail;
+    }
+
+    public Company(Long id, String username, String password,
+            String companyName, String contractNumber, @Email String companyEmail,
+                   Set<Item> items, int zkpo) {
+        super(id, username, password);
         this.companyName = companyName;
         this.contractNumber = contractNumber;
         this.companyEmail = companyEmail;
@@ -105,11 +107,11 @@ public class Company extends User {
         this.items = items;
     }
 
-    public Integer getZkpo() {
+    public int getZkpo() {
         return zkpo;
     }
 
-    public void setZkpo(Integer zkpo) {
+    public void setZkpo(int zkpo) {
         this.zkpo = zkpo;
     }
 

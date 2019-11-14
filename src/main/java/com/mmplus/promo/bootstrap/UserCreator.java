@@ -23,8 +23,8 @@ public class UserCreator {
 
     @PostConstruct
     public void init(){
-        userRepository.save(new User("d", passwordEncoder.encode("111")));
-        companyRepository.save(new Company("fff",
+        userRepository.save(new User(1L,"d", passwordEncoder.encode("111")));
+        companyRepository.save(new Company(2L,"fff",
                 passwordEncoder.encode("111"),
                 "Ferrero",
                 "К-355",

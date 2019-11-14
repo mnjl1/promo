@@ -1,7 +1,6 @@
 package com.mmplus.promo.config;
 
 import com.mmplus.promo.converter.CategoryEnumFormatter;
-import com.mmplus.promo.domain.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
