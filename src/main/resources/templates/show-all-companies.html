@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстр всіх завантажених компаній</title>
+</head>
+<body>
+        <div th:if="${not #lists.isEmpty(allcompanieslist)}">
+            <table>
+                <tr>
+                    <td>id</td>
+                    <td>Постачальник</td>
+                    <td>Договір</td>
+                    <td>ЄДРПОУ</td>
+                    <td>Email</td>
+                </tr>
+                <tr th:each="company:${allcompanieslist}">
+                    <td th:utext="*{company.getId()}"></td>
+                    <td th:utext="*{company.getCompanyName()}"></td>
+                    <td th:utext="*{company.getContractNumber()}"></td>
+                    <td th:utext="*{company.getZkpo()}"></td>
+                    <td th:utext="*{company.getCompanyEmail()}"></td>
+                </tr>
+            </table>
+        </div>
+</body>
+</html>
