@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Завантаження нових позицій</title>
+</head>
+<body>
+<div>
+    <form action="/manager/upload-excel-items-list-file" enctype="multipart/form-data" method="post">
+        <input type="file" th:name="itemsListFile"/>
+        <br><br>
+
+        <input type="submit" value="завантаження файла">
+    </form>
+</div>
+</body>
+</html>

@@ -2,6 +2,8 @@ package com.mmplus.promo.domain.profiles;
 
 import com.mmplus.promo.domain.Item;
 import com.mmplus.promo.utils.Constants;
+import net.bytebuddy.build.ToStringPlugin;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -28,8 +30,10 @@ public class Company extends User {
     //todo create @Digits rejex validation
     private int zkpo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "company_item",
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {CascadeType.PERSIST,
+    CascadeType.MERGE})
+    @JoinTable(name = "company_items",
     joinColumns = @JoinColumn(name = "company_id"),
     inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items = new HashSet<>();
@@ -115,6 +119,10 @@ public class Company extends User {
         this.zkpo = zkpo;
     }
 
+    public void addItem(Item item){
+        items.add(item);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -130,16 +138,5 @@ public class Company extends User {
     @Override
     public int hashCode() {
         return Objects.hash(getCompanyName(), getContractNumber(), getCompanyEmail(), getItems(), getZkpo());
-    }
-
-    @Override
-    public String toString() {
-        return "Company{" +
-                "companyName='" + companyName + '\'' +
-                ", contractNumber='" + contractNumber + '\'' +
-                ", companyEmail='" + companyEmail + '\'' +
-                ", items=" + items +
-                ", zkpo=" + zkpo +
-                '}';
     }
 }

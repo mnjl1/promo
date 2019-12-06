@@ -1,19 +1,25 @@
 package com.mmplus.promo.domain;
 
 import com.mmplus.promo.domain.profiles.Company;
+import com.mmplus.promo.repository.ItemRepository;
+import com.mmplus.promo.service.ItemService;
+import com.mmplus.promo.service.ItemServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.Objects.hash;
 
 @Entity
+@Table(name = "Items")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String ean;
+
+    private int ean;
 
     @Column(name = "item_name")
     private String itemName;
@@ -23,13 +29,14 @@ public class Item {
 
     private String stockNumber;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "items")
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "items")
     private Set<Company> companies = new HashSet<>();
 
     public Item() {
     }
 
-    public Item(String ean, String itemName, Category category,
+    public Item(int ean, String itemName, Category category,
                 String stockNumber,
                 Set<Company> companies) {
         this.ean = ean;
@@ -47,11 +54,11 @@ public class Item {
         this.id = id;
     }
 
-    public String getEan() {
+    public int getEan() {
         return ean;
     }
 
-    public void setEan(String ean) {
+    public void setEan(int ean) {
         this.ean = ean;
     }
 
@@ -91,30 +98,17 @@ public class Item {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Item)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(getId(), item.getId()) &&
-                Objects.equals(getEan(), item.getEan()) &&
-                Objects.equals(getItemName(), item.getItemName()) &&
-                getCategory() == item.getCategory() &&
-                Objects.equals(getStockNumber(), item.getStockNumber()) &&
-                Objects.equals(getCompanies(), item.getCompanies());
+        return ean == item.ean &&
+                Objects.equals(itemName, item.itemName) &&
+                category == item.category &&
+                Objects.equals(stockNumber, item.stockNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEan(), getItemName(), getCategory(), getStockNumber(), getCompanies());
+        return hash(ean, itemName, category, stockNumber);
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", ean='" + ean + '\'' +
-                ", itemName='" + itemName + '\'' +
-                ", category=" + category +
-                ", stockNumber='" + stockNumber + '\'' +
-                ", companies=" + companies +
-                '}';
-    }
 }

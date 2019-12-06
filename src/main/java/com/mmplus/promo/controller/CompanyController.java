@@ -28,12 +28,12 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping("/upload-excel-file")
+    @GetMapping("/upload-excel-company-list-file")
     public String showUploadFilePage(){
-        return "upload-excel-file";
+        return "upload-excel-company-list-file";
     }
 
-    @PostMapping("/upload-company-list")
+    @PostMapping("/upload-excel-company-list-file")
     public String uploadExcelCompanyList(@RequestParam ("companyListFile") MultipartFile multipartFile )
             throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
@@ -51,13 +51,12 @@ public class CompanyController {
             companyService.saveOrUpdate(company);
         }
 
-        //todo return to uploaded companies page
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping("/show-all-companies")
     public String showAllCompanies(Model model){
         model.addAttribute("allcompanieslist", companyService.findAll());
-        return "redirect:/show-all-companies";
+        return "show-all-companies";
     }
 }

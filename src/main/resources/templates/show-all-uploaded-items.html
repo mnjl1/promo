@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Завантажені нових позицій</title>
+</head>
+<body>
+        <div th:if="${not #lists.isEmpty(showAllItems)}">
+            <table>
+                <tr>
+                    <td>id</td>
+                    <td>ean></td>
+                    <td>Товар</td>
+                    <td>Постачальник</td>
+                </tr>
+                <tr th:each="item:${showAllItems}">
+                    <td th:utext="*{item.getId()}"></td>
+                    <td th:utext="*{item.getEan()}"></td>
+                    <td th:utext="*{item.getItemName()}"></td>
+                    <td th:utext="*{item.getCompanies()}"></td>
+                </tr>
+            </table>
+        </div>
+
+</body>
+</html>
