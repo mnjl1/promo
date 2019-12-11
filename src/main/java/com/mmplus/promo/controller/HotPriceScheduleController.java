@@ -26,12 +26,6 @@ public class HotPriceScheduleController {
     public String processHotPriceScheduleFor(Model model, HotPricePromoSchedule schedule){
         model.addAttribute("schedule", schedule);
         hotPricePromoScheduleService.saveOrUpdate(schedule);
-        return  "redirect:hot-price-schedule-list";
-    }
-
-    @RequestMapping("/hot-price-schedule-list")
-    public String getHotPriceScheduleList(Model model){
-        model.addAttribute("hotPriceSchedule", hotPricePromoScheduleService.findAll());
-        return "hot-price-schedule-list";
+        return  "redirect:/company/hot-price-schedule-list";
     }
 }

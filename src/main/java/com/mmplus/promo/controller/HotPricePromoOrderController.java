@@ -7,6 +7,7 @@ import com.mmplus.promo.repository.CompanyRepository;
 import com.mmplus.promo.domain.Category;
 import com.mmplus.promo.domain.Item;
 import com.mmplus.promo.service.HotPricePromoOrderService;
+import com.mmplus.promo.service.HotPricePromoScheduleService;
 import com.mmplus.promo.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,21 +21,31 @@ import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes("hotPricePromoOrder")
-@RequestMapping("/place-hot-price-promo-order")
+@RequestMapping("/company")
 public class HotPricePromoOrderController {
 
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private HotPricePromoScheduleService hotPricePromoScheduleService;
+
     private final ItemService itemService;
     private final HotPricePromoOrderService hotPricePromoOrderService;
 
-    public HotPricePromoOrderController(ItemService itemService, HotPricePromoOrderService hotPricePromoOrderService) {
+    public HotPricePromoOrderController(ItemService itemService,
+                                        HotPricePromoOrderService hotPricePromoOrderService) {
         this.itemService = itemService;
         this.hotPricePromoOrderService = hotPricePromoOrderService;
     }
 
-    @GetMapping
+    @RequestMapping("/hot-price-schedule-list")
+    public String getHotPriceScheduleList(Model model){
+        model.addAttribute("hotPriceSchedule", hotPricePromoScheduleService.findAll());
+        return "hot-price-schedule-list";
+    }
+
+    @GetMapping("/place-hot-price-promo-order")
     public String showOrderForm(Model model){
 
         List<Item> items = new ArrayList<>();

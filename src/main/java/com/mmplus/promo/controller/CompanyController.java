@@ -59,4 +59,6 @@ public class CompanyController {
         model.addAttribute("allcompanieslist", companyService.findAll());
         return "show-all-companies";
     }
+
+
 }

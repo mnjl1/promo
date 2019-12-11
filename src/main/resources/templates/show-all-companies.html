@@ -13,6 +13,11 @@
                     <td>Договір</td>
                     <td>ЄДРПОУ</td>
                     <td>Email</td>
+                    <td>
+<!--                    <div sec:authorize="hasRole('USER')">-->
+                        Реєстрація постачальника
+<!--                    </div>-->
+                    </td>
                 </tr>
                 <tr th:each="company:${allcompanieslist}">
                     <td th:utext="*{company.getId()}"></td>
@@ -20,6 +25,12 @@
                     <td th:utext="*{company.getContractNumber()}"></td>
                     <td th:utext="*{company.getZkpo()}"></td>
                     <td th:utext="*{company.getCompanyEmail()}"></td>
+                    <td>
+<!--                        <div sec:aurhorize="hasRole('USER')">-->
+                            <a th:href="@{${'/manager/registerCompany/'+company.id}}">назначити логін та пароль</a>
+<!--                        </div>-->
+                    </td>
+
                 </tr>
             </table>
         </div>

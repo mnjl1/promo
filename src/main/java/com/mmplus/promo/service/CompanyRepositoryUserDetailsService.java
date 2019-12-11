@@ -23,6 +23,8 @@ public class CompanyRepositoryUserDetailsService implements UserDetailsService  
         this.companyRepository = companyRepository;
     }
 
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Company company = companyRepository.findByUsername(username);
