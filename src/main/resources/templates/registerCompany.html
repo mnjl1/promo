@@ -2,14 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Promo MMplus</title>
+    <title>Реєстрація</title>
 </head>
 <body>
 <h1>Register</h1>
 <img th:src="@{/images/mmplus.png}"/>
-<form method="post" th:action="@{/manager/registerCompany}" id="registerForm">
+<form method="post" th:action="@{/manager/process-company-registration}" id="registerForm" th:object="${company}">
+    <input type="hidden" th:field="*{id}">
+
     <label for="companyName">Company:</label>
-    <input type="text" name="companyName">
+    <input type="text" name="*{companyName}" th:value="${company.getCompanyName()}">
+    <label for="contructNumber">Номер договору </label>
+    <input type="text" name="*{contractNumber}" th:value="${company.getContractNumber()}">
     <label for="companyEmail">Email:</label>
     <input type="text" name="companyEmail">
     <label for="zkpo">ZKPO:</label>

@@ -19,7 +19,6 @@ public class Company extends User {
 
     private static final long serialVersionUID = 1L;
 
-    @NotBlank(message = Constants.MESSAGE_COMPANY_NAME_REQUIRED)
     private String companyName;
 
     private String contractNumber;
@@ -29,6 +28,8 @@ public class Company extends User {
 
     //todo create @Digits rejex validation
     private int zkpo;
+
+    private boolean isRegistered;
 
     @ManyToMany(fetch = FetchType.LAZY,
     cascade = {CascadeType.PERSIST,
@@ -117,6 +118,14 @@ public class Company extends User {
 
     public void setZkpo(int zkpo) {
         this.zkpo = zkpo;
+    }
+
+    public boolean isRegistered() {
+        return isRegistered;
+    }
+
+    public void setRegistered(boolean registered) {
+        isRegistered = registered;
     }
 
     public void addItem(Item item){
