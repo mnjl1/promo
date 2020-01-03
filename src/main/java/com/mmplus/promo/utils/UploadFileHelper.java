@@ -11,6 +11,4 @@ public class UploadFileHelper {
         categories.put("230902", Category.CONFECTIONERY);
         return categories.get(categoryNumber);
     }
-
-
 }

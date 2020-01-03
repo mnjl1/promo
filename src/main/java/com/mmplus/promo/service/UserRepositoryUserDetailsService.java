@@ -2,6 +2,9 @@ package com.mmplus.promo.service;
 
 import com.mmplus.promo.repository.UserRepository;
 import com.mmplus.promo.domain.profiles.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,5 +26,12 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
         }
         else throw  new UsernameNotFoundException("" +
                 "User '" +username +"' not found") ;
+    }
+
+    public String getPrincipal(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return userDetails.getUsername();
     }
 }

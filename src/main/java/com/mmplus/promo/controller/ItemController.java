@@ -53,7 +53,7 @@ public class ItemController {
             item.setItemName(currentRow.getCell(1).getStringCellValue());
             item.setStockNumber(String.valueOf(currentRow.getCell(2).getNumericCellValue()));
             item.setCategory(UploadFileHelper.getCategory(
-                    String.valueOf(currentRow.getCell(3).getNumericCellValue())));
+                    String.valueOf((int)currentRow.getCell(3).getNumericCellValue())));
 
             itemService.saveOrUpdate(item);
 

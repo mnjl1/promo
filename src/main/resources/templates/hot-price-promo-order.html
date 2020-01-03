@@ -13,6 +13,17 @@
     <link th:src="@{/images/mmplus.png}">
 
     <form method="post" th:object="${hotPricePromoOrder}">
+        <input type="hidden" th:field="*{id}">
+
+        <input type="hidden" name="company" th:value="${company.id}">
+
+        Постачальник: <input type="hidden" name="company" th:value="${company.getCompanyName()}">
+        Контракт №: <input type="hidden" name="company" th:value="${company.getContractNumber()}">
+
+        <input type="hidden" name="promoSchedule" th:value="${promoSchedule.id}">
+
+        Початок акції: <p th:text="${promoSchedule.getStartDate()}"/>
+        Кінець акції: <p th:text="${promoSchedule.getEndDate()}"/>
         <div class="grid">
             <div class="items-group" id="alcohol">
                 <h3>Алкоголь</h3>

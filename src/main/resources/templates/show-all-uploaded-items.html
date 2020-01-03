@@ -11,12 +11,14 @@
                     <td>id</td>
                     <td>ean></td>
                     <td>Товар</td>
+                    <td>Категорія</td>
                     <td>Постачальник</td>
                 </tr>
                 <tr th:each="item:${showAllItems}">
                     <td th:utext="*{item.getId()}"></td>
                     <td th:utext="*{item.getEan()}"></td>
                     <td th:utext="*{item.getItemName()}"></td>
+                    <td th:utext="*{item.getCategory()}"></td>
                     <td th:utext="*{item.getCompanies()}"></td>
                 </tr>
             </table>

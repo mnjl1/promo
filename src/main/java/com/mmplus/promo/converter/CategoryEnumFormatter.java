@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class CategoryEnumFormatter implements Formatter<Optional<Category>> {
     @Override
-    public Optional<Category> parse(String s, Locale locale) throws ParseException {
+    public Optional<Category> parse(String s, Locale locale)  {
         return Arrays.stream(Category.values()).filter(category -> category.toString().equals(s)).findAny();
     }
 

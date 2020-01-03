@@ -1,10 +1,6 @@
 package com.mmplus.promo.domain;
 
 import com.mmplus.promo.domain.profiles.Company;
-import com.mmplus.promo.repository.ItemRepository;
-import com.mmplus.promo.service.ItemService;
-import com.mmplus.promo.service.ItemServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.*;
