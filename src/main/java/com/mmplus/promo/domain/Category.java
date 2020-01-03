@@ -49,11 +49,15 @@ public enum Category {
 
     private String categoryValue;
 
-    private static Map<String, Category> map = Arrays.stream(Category.values())
-            .collect(Collectors.toMap(Category::getCategoryValue, category->category));
+    private static final Map<String, Category> map = Arrays.stream(Category.values())
+            .collect(Collectors.toMap(category ->category.categoryValue, category->category));
 
     Category(String categoryValue){
         this.categoryValue = categoryValue;
+    }
+
+    public Category getCategoryValue(String categoryValue){
+        return map.get(categoryValue);
     }
 
     public String getCategoryValue(){

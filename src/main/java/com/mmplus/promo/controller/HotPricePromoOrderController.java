@@ -3,12 +3,11 @@ package com.mmplus.promo.controller;
 import com.mmplus.promo.domain.activity.HotPricePromoOrder;
 import com.mmplus.promo.domain.activity.HotPricePromoOrderHolder;
 import com.mmplus.promo.domain.profiles.Company;
+import com.mmplus.promo.domain.schedule.HotPricePromoSchedule;
 import com.mmplus.promo.repository.CompanyRepository;
 import com.mmplus.promo.domain.Category;
 import com.mmplus.promo.domain.Item;
-import com.mmplus.promo.service.HotPricePromoOrderService;
-import com.mmplus.promo.service.HotPricePromoScheduleService;
-import com.mmplus.promo.service.ItemService;
+import com.mmplus.promo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,43 +25,69 @@ public class HotPricePromoOrderController {
 
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+   private UserRepositoryUserDetailsService userDetailsService;
+
+    @Autowired
+    private CompanyRepositoryUserDetailsService companyRepositoryUserDetailsService;
 
     @Autowired
     private HotPricePromoScheduleService hotPricePromoScheduleService;
 
     private final ItemService itemService;
     private final HotPricePromoOrderService hotPricePromoOrderService;
+    private final CompanyService companyService;
 
     public HotPricePromoOrderController(ItemService itemService,
-                                        HotPricePromoOrderService hotPricePromoOrderService) {
+                                        HotPricePromoOrderService hotPricePromoOrderService,
+                                        CompanyService companyService) {
         this.itemService = itemService;
         this.hotPricePromoOrderService = hotPricePromoOrderService;
+        this.companyService = companyService;
     }
 
     @RequestMapping("/hot-price-schedule-list")
     public String getHotPriceScheduleList(Model model){
-        model.addAttribute("hotPriceSchedule", hotPricePromoScheduleService.findAll());
+        model.addAttribute("hotPricePromoScheduleList", hotPricePromoScheduleService.findAll());
         return "hot-price-schedule-list";
     }
 
-    @GetMapping("/place-hot-price-promo-order")
-    public String showOrderForm(Model model){
+    @GetMapping("/place-hot-price-promo-order/{id}")
+    public String showOrderFormAndPassId(Model model, @PathVariable (value = "id") Long id){
+        HotPricePromoOrder hotPricePromoOrder = new HotPricePromoOrder();
+        HotPricePromoSchedule promoSchedule = hotPricePromoScheduleService.findById(id).get();
 
-        List<Item> items = new ArrayList<>();
+        //test print
+        String username = userDetailsService.getPrincipal();
+        System.out.println("Principal class: " +username);
+        Company company = companyRepositoryUserDetailsService.findCompanyByUserName(username);
+        System.out.println("Company: " +company.getCompanyName() + " " +company.getContractNumber());
 
-        itemService.findAll().forEach(items::add);
+        Set<Item> items = company.getItems();
 
         Category[] categories = Category.values();
 
         for (Category category: categories
-             ) {
+        ) {
+
             model.addAttribute(category.getCategoryValue().toLowerCase(),
                     filterByCategory(items, category.getCategoryValue()));
         }
+        System.out.println("Company after categories: " +company.getCompanyName());
 
-        model.addAttribute("hotPricePromoOrder", new HotPricePromoOrder());
+        model.addAttribute("company", company);
+        model.addAttribute("hotPricePromoOrder", hotPricePromoOrder);
+        model.addAttribute("promoSchedule", promoSchedule);
 
-        return "hotPricePromoOrder";
+        return "hot-price-promo-order";
+    }
+
+    @GetMapping("/place-hot-price-promo-order")
+    public String showOrderForm(Model model, HotPricePromoOrder hotPricePromoOrder){
+
+        model.addAttribute("hotPricePromoOrder", hotPricePromoOrder);
+
+        return "hot-price-promo-order";
     }
 
     @ModelAttribute(name = "hotPricePromoOrder")
@@ -80,7 +105,7 @@ public class HotPricePromoOrderController {
                                                 @ModelAttribute HotPricePromoOrderHolder hotPricePromoOrderHolder){
 
         if (errors.hasErrors()){
-            return "hotPricePromoOrder";
+            return "hot-price-promo-order";
         }
 
         HotPricePromoOrder saveHotPricePromoOrder = hotPricePromoOrderService
@@ -90,8 +115,11 @@ public class HotPricePromoOrderController {
         return "redirect:/orders/current";
     }
 
-    private List<Item> filterByCategory(List<Item> items, String category){
-        List<Item> filteredItems = items.stream().filter(p->category.equals(p.getCategory().getCategoryValue())).collect(Collectors.toList());
+    private List<Item> filterByCategory(Set<Item> items, String category){
+        List<Item> filteredItems = items.stream()
+                .filter(p->category.equals(p.getCategory()
+                .getCategoryValue()))
+                .collect(Collectors.toList());
         return filteredItems;
     }
 }

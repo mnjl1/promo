@@ -11,11 +11,11 @@
     <input type="hidden" th:field="*{id}">
 
     <label for="companyName">Company:</label>
-    <input type="text" name="*{companyName}" th:value="${company.getCompanyName()}">
+    <input type="text" name="companyName" th:field = "*{companyName}" th:value="${company.getCompanyName()}">
     <label for="contructNumber">Номер договору </label>
-    <input type="text" name="*{contractNumber}" th:value="${company.getContractNumber()}">
+    <input type="text" name="contractNumber" th:field="*{contractNumber}" th:value="${company.getContractNumber()}">
     <label for="companyEmail">Email:</label>
-    <input type="text" name="companyEmail">
+    <input type="text" t="companyEmail">
     <label for="zkpo">ZKPO:</label>
     <input type="number" name="zkpo">
     <label for="username">Username: </label>

@@ -5,7 +5,7 @@
     <title>Горяча ціна</title>
 </head>
 <body>
-    <div th:if="${not #lists.isEmpty(hotPriceSchedule)}">
+    <div th:if="${not #lists.isEmpty(hotPricePromoScheduleList)}">
     <table>
         <tr>
             <td>id</td>
@@ -13,11 +13,16 @@
             <td>Початок</td>
             <td>Кінець</td>
         </tr>
-        <tr th:each="schedule:${hotPriceSchedule}">
+        <tr th:each="schedule:${hotPricePromoScheduleList}">
             <td th:utext="*{schedule.id}"></td>
             <td th:utext="*{schedule.startDate.getMonth()}"></td>
             <td th:utext="*{schedule.startDate}"></td>
             <td th:utext="*{schedule.endDate}"></td>
+            <td>
+                <div>
+                    <a th:href="@{${'/company/place-hot-price-promo-order/' +schedule.id}}">Подати замовлення в акцію</a>
+                </div>
+            </td>
         </tr>
     </table>
     </div>

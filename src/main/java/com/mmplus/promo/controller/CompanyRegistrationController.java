@@ -1,6 +1,7 @@
 package com.mmplus.promo.controller;
 
 import com.mmplus.promo.domain.profiles.Company;
+import com.mmplus.promo.domain.profiles.User;
 import com.mmplus.promo.repository.CompanyRepository;
 import com.mmplus.promo.domain.registerforms.CompanyRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CompanyRegistrationController {
 
     @GetMapping("/registerCompany/{id}")
     public String showCompanyRegistrationFormById(Model model, @PathVariable(value = "id") Long id){
-        Company company = companyRepository.findById(id).get();
+        User company = companyRepository.findById(id).get();
         model.addAttribute("company", company);
         return "registerCompany";
     }
@@ -41,11 +42,12 @@ public class CompanyRegistrationController {
     }
 
     @PostMapping("/process-company-registration")
-    public String processCompanyRegistration(Model model, CompanyRegistrationForm companyRegistrationForm
-                                             ){
-        model.addAttribute("company", companyRegistrationForm);
-        companyRepository.save(companyRegistrationForm
-                                .toCompany(passwordEncoder));
+    public String processCompanyRegistration(Model model, Company company,
+                                             CompanyRegistrationForm companyRegistrationForm){
+
+        model.addAttribute("company", companyRegistrationForm.toCompany(passwordEncoder, company));
+        companyRepository.save(company);
+
         return "redirect:/";
     }
 }

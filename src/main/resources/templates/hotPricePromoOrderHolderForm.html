@@ -9,7 +9,7 @@
 <body>
     <form method="post" th:action="@{/orders}" th:object="${hotPricePromoOrderHolder}">
         <h1>Підтвердження замовлення в Гарячу ціну</h1>
-        <a th:href="@{/place-hot-price-promo-order}" id="another">Подати ще одне замовлення</a>
+        <a th:href="@{/company/place-hot-price-promo-order}" id="another">Подати ще одне замовлення</a>
          th:if="${#fields.hasAnyErrors()}">
             <span class="validationErrors">
                 Будь ласка виправьте помилки!

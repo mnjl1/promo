@@ -4,10 +4,13 @@ import com.mmplus.promo.domain.activity.HotPricePromoOrder;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "hotPricePromoSchedule")
 public class HotPricePromoSchedule extends PromoSchedule {
 
     @OneToMany
@@ -16,7 +19,12 @@ public class HotPricePromoSchedule extends PromoSchedule {
     public HotPricePromoSchedule() {
     }
 
+    public HotPricePromoSchedule(LocalDate startDate, LocalDate endDate) {
+        super(startDate, endDate);
+    }
+
     public HotPricePromoSchedule(List<HotPricePromoOrder> hotPricePromoOrders) {
+        super();
         this.hotPricePromoOrders = hotPricePromoOrders;
     }
 
