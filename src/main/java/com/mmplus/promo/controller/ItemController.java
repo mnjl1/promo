@@ -62,10 +62,12 @@ public class ItemController {
                     .findCompanyByContractNumber(contractNumber);
 
             if (company!=null){
-                company.addItem(item);
-                item.getCompanies().add(company);
-                companyRepositoryUserDetailsService
-                        .saveOrUpdate(company);
+                if (company.isRegistered()) {
+                    company.addItem(item);
+                    item.getCompanies().add(company);
+                    companyRepositoryUserDetailsService
+                            .saveOrUpdate(company);
+                }
             }
         }
 
