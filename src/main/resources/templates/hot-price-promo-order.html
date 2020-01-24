@@ -41,7 +41,7 @@
             </div>
             <div class="item-group" id="gastronomy">
                 <h3>Гастрономія</h3>
-                <div th:each="item : ${GASTRONOMY}">
+                <div th:each="item : ${gastronomy}">
                     <input name="items" type="checkbox" th:value="${item.id}"/>
                     <span th:text="${item.itemName}">ITEM</span>
                 </div>
@@ -55,7 +55,7 @@
             </div>
             <div class="item-group" id="confectionery">
                 <h3>Кондитерські вироби</h3>
-                <div th:each="item : ${CONFECTIONERY}">
+                <div th:each="item : ${confectionery}">
                     <input name="items" type="checkbox" th:value="${item.id}"/>
                     <span th:text="${item.itemName}">ITEM</span>
                 </div>

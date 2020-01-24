@@ -57,11 +57,11 @@ public class HotPricePromoOrderController {
         HotPricePromoOrder hotPricePromoOrder = new HotPricePromoOrder();
         HotPricePromoSchedule promoSchedule = hotPricePromoScheduleService.findById(id).get();
 
-        //test print
         String username = userDetailsService.getPrincipal();
-        System.out.println("Principal class: " +username);
         Company company = companyRepositoryUserDetailsService.findCompanyByUserName(username);
-        System.out.println("Company: " +company.getCompanyName() + " " +company.getContractNumber());
+
+        //test print
+        System.out.println("Company: " +company.getCompanyName() +", " +company.isRegistered());
 
         Set<Item> items = company.getItems();
 
@@ -71,9 +71,8 @@ public class HotPricePromoOrderController {
         ) {
 
             model.addAttribute(category.getCategoryValue().toLowerCase(),
-                    filterByCategory(items, category.getCategoryValue()));
+                    filterByCategory(items, category.getCategoryValue().toLowerCase()));
         }
-        System.out.println("Company after categories: " +company.getCompanyName());
 
         model.addAttribute("company", company);
         model.addAttribute("hotPricePromoOrder", hotPricePromoOrder);
@@ -116,10 +115,9 @@ public class HotPricePromoOrderController {
     }
 
     private List<Item> filterByCategory(Set<Item> items, String category){
-        List<Item> filteredItems = items.stream()
+        return items.stream()
                 .filter(p->category.equals(p.getCategory()
-                .getCategoryValue()))
+                        .getCategoryValue().toLowerCase()))
                 .collect(Collectors.toList());
-        return filteredItems;
     }
 }
