@@ -31,4 +31,14 @@ public class ItemServiceImpl implements ItemService {
         return (List<Item>) itemRepository.findAll();
     }
 
+    @Override
+    public boolean eanExists(String ean) {
+        Item item = itemRepository.findByEan(ean);
+        return item != null;
+    }
+
+    @Override
+    public Item findItemByEan(String ean) {
+        return itemRepository.findByEan(ean);
+    }
 }

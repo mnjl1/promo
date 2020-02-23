@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
+    Item findByEan(String ean);
 }

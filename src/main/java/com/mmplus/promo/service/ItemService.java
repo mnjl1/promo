@@ -8,7 +8,11 @@ public interface ItemService {
 
     Optional<Item> findById(Long id);
 
+    Item findItemByEan(String ean);
+
     void saveOrUpdate(Item item);
 
     List<Item> findAll();
+
+    boolean eanExists(String ean);
 }

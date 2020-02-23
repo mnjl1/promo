@@ -4,6 +4,7 @@ import com.mmplus.promo.domain.Item;
 import com.mmplus.promo.domain.profiles.Company;
 import com.mmplus.promo.repository.CompanyRepository;
 import com.mmplus.promo.service.CompanyRepositoryUserDetailsService;
+import com.mmplus.promo.service.CompanyService;
 import com.mmplus.promo.service.ItemService;
 import com.mmplus.promo.utils.UploadFileHelper;
 import org.apache.poi.ss.usermodel.Row;
@@ -25,11 +26,14 @@ import java.util.Iterator;
 public class ItemController {
     private final ItemService itemService;
     private final CompanyRepositoryUserDetailsService companyRepositoryUserDetailsService;
+    private final CompanyService companyService;
 
     public ItemController(ItemService itemService,
-                          CompanyRepositoryUserDetailsService companyRepositoryUserDetailsService, CompanyRepository companyRepository) {
+                          CompanyRepositoryUserDetailsService companyRepositoryUserDetailsService,
+                          CompanyService companyService) {
         this.itemService = itemService;
         this.companyRepositoryUserDetailsService = companyRepositoryUserDetailsService;
+        this.companyService = companyService;
     }
 
     @GetMapping("/upload-excel-items-list-file")
@@ -45,26 +49,29 @@ public class ItemController {
         XSSFSheet sheet = workbook.getSheetAt(0);
 
         for (Row currentRow : sheet) {
-            Item item = new Item();
-            item.setEan(String.valueOf((long) currentRow.getCell(0).getNumericCellValue()));
-            item.setItemName(currentRow.getCell(1).getStringCellValue());
-            item.setStockNumber(String.valueOf((int) currentRow.getCell(2).getNumericCellValue()));
-            item.setCategory(UploadFileHelper.getCategory(
-                    String.valueOf((int) currentRow.getCell(3).getNumericCellValue())));
 
+            Item item = new Item();
+
+            String ean = String.valueOf((long) currentRow.getCell(0).getNumericCellValue());
             String contractNumber = currentRow.getCell(4).getStringCellValue();
             Company company = companyRepositoryUserDetailsService
                     .findCompanyByContractNumber(contractNumber);
 
-            if (company != null) {
-                if (company.isRegistered()) {
-                    itemService.saveOrUpdate(item);
-                    company.addItem(item);
-                    item.getCompanies().add(company);
-                    companyRepositoryUserDetailsService
-                            .saveOrUpdate(company);
-                }
+            if (!itemService.eanExists(ean) && company != null && company.isRegistered()){
+                item.setEan(ean);
+                item.setItemName(currentRow.getCell(1).getStringCellValue());
+                item.setStockNumber(String.valueOf((int) currentRow.getCell(2).getNumericCellValue()));
+                item.setCategory(UploadFileHelper.getCategory(
+                        String.valueOf((int) currentRow.getCell(3).getNumericCellValue())));
+                itemService.saveOrUpdate(item);
+            }
+            else item = itemService.findItemByEan(ean);
 
+            if (company !=null && company.isRegistered()){
+                company.addItem(item);
+                item.getCompanies().add(company);
+                companyRepositoryUserDetailsService
+                        .saveOrUpdate(company);
             }
         }
 
