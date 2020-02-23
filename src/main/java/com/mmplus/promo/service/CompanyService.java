@@ -12,4 +12,6 @@ public interface CompanyService  {
     Company findCompanyByUserName(String username);
 
     Optional<Company> findCompanyById(Long id);
+
+    boolean companyContractExists(String contractNumber);
 }

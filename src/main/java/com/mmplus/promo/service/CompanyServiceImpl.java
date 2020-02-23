@@ -32,4 +32,10 @@ public class CompanyServiceImpl implements CompanyService {
     public Optional<Company> findCompanyById(Long id) {
         return companyRepository.findById(id);
     }
+
+    @Override
+    public boolean companyContractExists(String contractNumber) {
+        Company company = companyRepository.findCompanyByContractNumber(contractNumber);
+        return company != null;
+    }
 }
