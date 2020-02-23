@@ -1,6 +1,7 @@
 package com.mmplus.promo.domain.profiles;
 
 import com.mmplus.promo.domain.Item;
+import com.mmplus.promo.domain.activity.HotPricePromoOrder;
 import com.mmplus.promo.utils.Constants;
 import net.bytebuddy.build.ToStringPlugin;
 import org.hibernate.annotations.Cascade;
@@ -15,7 +16,6 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "company")
 public class Company extends User {
 
     private static final long serialVersionUID = 1L;
@@ -39,7 +39,6 @@ public class Company extends User {
     joinColumns = @JoinColumn(name = "company_id"),
     inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items = new HashSet<>();
-
 
     public Company(String username, String password,
                    String companyName, String contractNumber, @Email String companyEmail) {

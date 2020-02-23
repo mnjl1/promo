@@ -38,12 +38,10 @@ public class CompanyController {
             throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
         XSSFSheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> iterator = sheet.iterator();
 
-        while (iterator.hasNext()){
-            Row currentRow = iterator.next();
-
+        for (Row currentRow : sheet) {
             Company company = new Company();
+
             company.setContractNumber(currentRow.getCell(0).getStringCellValue());
             company.setZkpo(((int) currentRow.getCell(1).getNumericCellValue()));
             company.setCompanyName(currentRow.getCell(2).getStringCellValue());
@@ -59,6 +57,5 @@ public class CompanyController {
         model.addAttribute("allcompanieslist", companyService.findAll());
         return "show-all-companies";
     }
-
 
 }

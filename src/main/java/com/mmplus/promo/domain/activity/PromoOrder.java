@@ -13,14 +13,16 @@ import java.util.Objects;
 @Entity
 public class PromoOrder {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Date createdAt;
 
     @ManyToMany(targetEntity = Item.class)
-    @Size(min = 1, message = Constants.MESSAGE_COLLECTION)
     private List<Item> items = new ArrayList<>();
+
+    public PromoOrder() {
+    }
 
     @PrePersist
     void createdAte(){

@@ -12,18 +12,18 @@
     <h1>Додайте позициї в замовлення</h1>
     <link th:src="@{/images/mmplus.png}">
 
-    <form method="post" th:object="${hotPricePromoOrder}">
-        <input type="hidden" th:field="*{id}">
+    <form action="/company/process-hot-price-promo-order" method="post" th:object="${hotPricePromoOrder}">
 
-        <input type="hidden" name="company" th:value="${company.id}">
+        <input type="hidden" th:name="hotPricePromoSchedule" th:value="${hotPricePromoSchedule.id}"/>
 
-        Постачальник: <input type="hidden" name="company" th:value="${company.getCompanyName()}">
-        Контракт №: <input type="hidden" name="company" th:value="${company.getContractNumber()}">
+        Постачальник: <p   th:text="${company.getCompanyName()}">
 
-        <input type="hidden" name="promoSchedule" th:value="${promoSchedule.id}">
+        Контракт №: <p  th:text="${company.getContractNumber()}">
 
-        Початок акції: <p th:text="${promoSchedule.getStartDate()}"/>
-        Кінець акції: <p th:text="${promoSchedule.getEndDate()}"/>
+        Початок акції: <p th:text="${hotPricePromoSchedule.startDate}">
+
+        Кінець акції: <p th:text="${hotPricePromoSchedule.endDate}">
+
         <div class="grid">
             <div class="items-group" id="alcohol">
                 <h3>Алкоголь</h3>

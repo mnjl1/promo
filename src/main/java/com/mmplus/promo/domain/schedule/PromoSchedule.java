@@ -8,8 +8,9 @@ import java.util.Objects;
 
 @Entity
 public class PromoSchedule {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -19,11 +20,6 @@ public class PromoSchedule {
     private LocalDate endDate;
 
     public PromoSchedule() {
-    }
-
-    public PromoSchedule(LocalDate startDate, LocalDate endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
 
     public Long getId() {

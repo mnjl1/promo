@@ -43,31 +43,28 @@ public class ItemController {
 
         XSSFWorkbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
         XSSFSheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> iterator = sheet.iterator();
 
-        while (iterator.hasNext()){
-            Row currentRow = iterator.next();
-
+        for (Row currentRow : sheet) {
             Item item = new Item();
-            item.setEan((int) currentRow.getCell(0).getNumericCellValue());
+            item.setEan(String.valueOf((long) currentRow.getCell(0).getNumericCellValue()));
             item.setItemName(currentRow.getCell(1).getStringCellValue());
-            item.setStockNumber(String.valueOf(currentRow.getCell(2).getNumericCellValue()));
+            item.setStockNumber(String.valueOf((int) currentRow.getCell(2).getNumericCellValue()));
             item.setCategory(UploadFileHelper.getCategory(
-                    String.valueOf((int)currentRow.getCell(3).getNumericCellValue())));
-
-            itemService.saveOrUpdate(item);
+                    String.valueOf((int) currentRow.getCell(3).getNumericCellValue())));
 
             String contractNumber = currentRow.getCell(4).getStringCellValue();
             Company company = companyRepositoryUserDetailsService
                     .findCompanyByContractNumber(contractNumber);
 
-            if (company!=null){
+            if (company != null) {
                 if (company.isRegistered()) {
+                    itemService.saveOrUpdate(item);
                     company.addItem(item);
                     item.getCompanies().add(company);
                     companyRepositoryUserDetailsService
                             .saveOrUpdate(company);
                 }
+
             }
         }
 

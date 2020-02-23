@@ -12,12 +12,12 @@
 
     <label for="companyName">Company:</label>
     <input type="text" name="companyName" th:field = "*{companyName}" th:value="${company.getCompanyName()}">
-    <label for="contructNumber">Номер договору </label>
+    <label for="contractNumber">Номер договору </label>
     <input type="text" name="contractNumber" th:field="*{contractNumber}" th:value="${company.getContractNumber()}">
     <label for="companyEmail">Email:</label>
-    <input type="text" t="companyEmail">
+    <input type="text" name="companyEmail">
     <label for="zkpo">ZKPO:</label>
-    <input type="number" name="zkpo">
+    <input type="number" name="zkpo" th:field="*{zkpo}" th:value="${company.getZkpo()}">
     <label for="username">Username: </label>
     <input type="text" name="username"/><br/>
     <label for="password">Password: </label>

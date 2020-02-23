@@ -15,7 +15,7 @@ public class Item {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private int ean;
+    private String ean;
 
     @Column(name = "item_name")
     private String itemName;
@@ -32,7 +32,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(int ean, String itemName, Category category,
+    public Item(String ean, String itemName, Category category,
                 String stockNumber,
                 Set<Company> companies) {
         this.ean = ean;
@@ -50,11 +50,11 @@ public class Item {
         this.id = id;
     }
 
-    public int getEan() {
+    public String getEan() {
         return ean;
     }
 
-    public void setEan(int ean) {
+    public void setEan(String ean) {
         this.ean = ean;
     }
 

@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole("USER")
                 .antMatchers("/company/place-promoOrder", "/company/orders").hasRole("COMPANY")
                 .antMatchers("/company/hot-price-schedule-list").hasAnyRole("COMPANY", "USER")
-                .antMatchers("/", "/**").permitAll()
+                .antMatchers("/", "/**", "/h2-console/**").permitAll()
                 .and()
                 .formLogin()
                 //todo change url when company class and access page done
@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/")
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .headers().frameOptions().disable();
     }
 
     @Bean

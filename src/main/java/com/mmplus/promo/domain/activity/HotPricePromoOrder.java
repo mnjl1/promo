@@ -3,20 +3,24 @@ package com.mmplus.promo.domain.activity;
 import com.mmplus.promo.domain.schedule.HotPricePromoSchedule;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class HotPricePromoOrder extends PromoOrder {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private HotPricePromoSchedule hotPricePromoSchedule;
 
     public HotPricePromoOrder() {
     }
 
-    public HotPricePromoOrder(HotPricePromoSchedule hotPricePromoSchedule) {
+    public HotPricePromoOrder(HotPricePromoSchedule hotPricePromoSchedule){
+        super();
         this.hotPricePromoSchedule = hotPricePromoSchedule;
     }
 
