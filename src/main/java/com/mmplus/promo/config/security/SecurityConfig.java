@@ -43,8 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //todo change url when company class and access page done
                 .loginPage("/login").defaultSuccessUrl("/")
                 .and()
-                .logout()
+                .logout().permitAll()
                 .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/access-denied-page")
                 .and()
                 .csrf().disable()
                 .headers().frameOptions().disable();
