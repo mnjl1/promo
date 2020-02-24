@@ -1,10 +1,8 @@
 package com.mmplus.promo.domain.activity;
 
 import com.mmplus.promo.domain.Item;
-import com.mmplus.promo.utils.Constants;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

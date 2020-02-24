@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Обробка замовлень</title>
+</head>
+<body>
+    <div th:object="${currentHotPricePromoSchedule}">
+        Обробка замовлень за:
+        Початок: <p th:text="${currentHotPricePromoSchedule.get().startDate}">
+        Кінець: <p th:text="${currentHotPricePromoSchedule.get().endDate}">
+    </div>
+
+    <div th:if="${not #lists.isEmpty(hotPricePromoOrders)}">
+        <table>
+            <tr>
+                <td>Номер замовлення</td>
+                <td>Дата замовлення</td>
+                <td>Договір</td>
+            </tr>
+            <tr th:each="order:${hotPricePromoOrders}">
+                <td th:utext="${order.id}"></td>
+                <td th:utext="${order.getCreatedAt()}"></td>
+                <td th:utext="${order.getItems()}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
